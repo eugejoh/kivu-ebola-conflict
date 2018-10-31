@@ -11,7 +11,7 @@ library(here)
 
 library(knitr)
 library(kableExtra)
-knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.height = 8, fig.width = 8.5)
 
 # Load packages
 source(here("00_load_packages.R"))
@@ -34,7 +34,6 @@ describe_df(d_drc) %>%
   kable_styling(bootstrap_options = c("striped", "responsive"),
                 position = "center")
 ```
-
 
 ```{r drc_datatype}
 type_df(d_drc) %>% 
@@ -87,8 +86,8 @@ left_join(describe_df(d_evd),
 <br>
 <br>
 
-**R Session Info:**
-```{r include=FALSE}
+**R Session Information: **
+```{r rsessioninfo, echo=FALSE}
 sessionInfo()
 ```
 
