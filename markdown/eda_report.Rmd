@@ -22,7 +22,7 @@ source(here("R", "describe_df.R"))
 ```
 
 # Data Import
-```{r import, include=TRUE}
+```{r import, message=FALSE, warning=FALSE ,include=TRUE}
 source(here::here("01_data_import.R"))
 ```
 
@@ -30,23 +30,58 @@ source(here::here("01_data_import.R"))
 ## DRC Conflict
 ```{r drc_describe}
 describe_df(d_drc) %>% 
-  kable(caption = "Missing Values in 'd_drc' Data Frame")
+  kable(caption = "Missing Values in 'd_drc' Data Frame") %>% 
+  kable_styling(bootstrap_options = c("striped", "responsive"),
+                position = "center")
 ```
+
 
 ```{r drc_datatype}
 type_df(d_drc) %>% 
-  kable(caption = "Variable Data Types for 'd_drc'")
+  kable(caption = "Variable Data Types for 'd_drc'") %>% 
+  kable_styling(bootstrap_options = c("striped", "responsive"),
+                position = "center")
 ```
 
+```{r drc_describe_p}
+left_join(describe_df(d_drc),
+          type_df(d_drc),
+          by = "col_name") %>% 
+  ggplot(aes(x = col_name, y = NA_percent, fill = data_type, colour = data_type)) +
+  geom_bar(stat='identity') +
+  coord_flip() +
+  labs(title = "Data Type and NA Values in DRC Conflict Data",
+       x = "Variables", y = "Percent Missing (%)") +
+  scale_fill_brewer(type = "qual", palette = 1, name = "Data Type") +
+  scale_colour_brewer(type = "qual", palette = 1, guide = FALSE)
+```
 
 ## Ebola Conflict
 ```{r evd_describe}
-describe_df(d_drc) %>% 
-  kable(caption = "Missing Values in 'd_evd' Data Frame")
+describe_df(d_evd) %>% 
+  kable(caption = "Missing Values in 'd_evd' Data Frame") %>% 
+  kable_styling(bootstrap_options = c("striped", "responsive"),
+                position = "center")
 ```
 
 ```{r evd_datatype}
-type_df(d_drc) %>% 
-  kable(caption = "Variable Data Types for 'd_drc'")
+type_df(d_evd) %>% 
+  kable(caption = "Variable Data Types for 'd_drc'") %>% 
+  kable_styling(bootstrap_options = c("striped", "responsive"),
+                position = "center")
 ```
+
+```{r evd_describe_p}
+left_join(describe_df(d_evd),
+          type_df(d_evd),
+          by = "col_name") %>% 
+  ggplot(aes(x = col_name, y = NA_percent, fill = data_type, colour = data_type)) +
+  geom_bar(stat='identity') +
+  coord_flip() +
+  labs(title = "Data Type and NA Values in DRC Ebola Case Data",
+       x = "Variables", y = "Percent Missing (%)") +
+  scale_fill_brewer(type = "qual", palette = 1, name = "Data Type") +
+  scale_colour_brewer(type = "qual", palette = 1, guide = FALSE)
+```
+
 
