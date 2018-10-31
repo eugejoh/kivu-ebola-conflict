@@ -84,4 +84,12 @@ left_join(describe_df(d_evd),
   scale_colour_brewer(type = "qual", palette = 1, guide = FALSE)
 ```
 
+<br>
+<br>
 
+**R Session Info:**
+```{r include=FALSE}
+sessionInfo()
+```
+
+**Last Edited:** `r format(Sys.Date(), "%b %d %Y")`
