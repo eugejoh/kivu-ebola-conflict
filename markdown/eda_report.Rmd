@@ -18,7 +18,7 @@ source(here("00_load_packages.R"))
 ```
 
 ```{r load_fnc, include=TRUE}
-source(here("R", "describe_df.R"))
+source(here::here("R", "describe_df.R"))
 ```
 
 # Data Import
@@ -41,12 +41,12 @@ type_df(d_drc) %>%
 
 ## Ebola Conflict
 ```{r evd_describe}
-describe_df(d_drc) %>% 
+describe_df(d_evd) %>% 
   kable(caption = "Missing Values in 'd_evd' Data Frame")
 ```
 
 ```{r evd_datatype}
-type_df(d_drc) %>% 
+type_df(d_evd) %>% 
   kable(caption = "Variable Data Types for 'd_drc'")
 ```
 
