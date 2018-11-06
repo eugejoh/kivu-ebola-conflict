@@ -47,6 +47,16 @@ describe_df(d_evd) %>%
 
 ```{r evd_datatype}
 type_df(d_evd) %>% 
-  kable(caption = "Variable Data Types for 'd_drc'")
+  kable(caption = "Variable Data Types for 'd_evd'")
+```
+### Descriptors: 
+
+```{r evd_eda}
+source(here::here("R", "ebola_descriptors.R"))
+province_healthzone %>% 
+  kable(caption = "Affected Health Zones") %>%
+  kable_styling(full_width = F, position = "left")
+epi_curve
 ```
 
+**Date Range:** `r report_date_range`
