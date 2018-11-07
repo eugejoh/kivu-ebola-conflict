@@ -14,11 +14,11 @@ library(kableExtra)
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.height = 8, fig.width = 8.5)
 
 # Load packages
-source(here("00_load_packages.R"))
+source(here::here("00_load_packages.R"))
 ```
 
 ```{r load_fnc, include=TRUE}
-source(here("R", "describe_df.R"))
+source(here::here("R", "describe_df.R"))
 ```
 
 # Data Import
@@ -51,8 +51,8 @@ left_join(describe_df(d_drc),
   coord_flip() +
   labs(title = "Data Type and NA Values in DRC Conflict Data",
        x = "Variables", y = "Percent Missing (%)") +
-  scale_fill_brewer(type = "qual", palette = 1, name = "Data Type") +
-  scale_colour_brewer(type = "qual", palette = 1, guide = FALSE)
+  scale_fill_brewer(type = "qual", palette = 6, name = "Data Type") +
+  scale_colour_brewer(type = "qual", palette = 6, guide = FALSE)
 ```
 
 ## Ebola Conflict
@@ -79,8 +79,8 @@ left_join(describe_df(d_evd),
   coord_flip() +
   labs(title = "Data Type and NA Values in DRC Ebola Case Data",
        x = "Variables", y = "Percent Missing (%)") +
-  scale_fill_brewer(type = "qual", palette = 1, name = "Data Type") +
-  scale_colour_brewer(type = "qual", palette = 1, guide = FALSE)
+  scale_fill_brewer(type = "qual", palette = 6, name = "Data Type") +
+  scale_colour_brewer(type = "qual", palette = 6, guide = FALSE)
 ```
 
 <br>

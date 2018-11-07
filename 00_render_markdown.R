@@ -6,9 +6,9 @@ library(here)
 library(rmarkdown)
 
 rmarkdown::render(
-  input = here("markdown", "eda_report.Rmd"),
+  input = here::here("markdown", "eda_report.Rmd"),
   output_file = paste0("kivu-ebola-conflict.html"),
-  output_dir = here("reports"),
+  output_dir = here::here("reports"),
   quiet = TRUE)
 
-list.files(here("reports"))
+list.files(here::here("reports"))
