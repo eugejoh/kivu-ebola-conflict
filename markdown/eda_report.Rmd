@@ -61,11 +61,12 @@ describe_df(d_evd) %>%
   kable(caption = "Missing Values in 'd_evd' Data Frame") %>% 
   kable_styling(bootstrap_options = c("striped", "responsive"),
                 position = "center")
+
 ```
 
 ```{r evd_datatype}
 type_df(d_evd) %>% 
-  kable(caption = "Variable Data Types for 'd_drc'") %>% 
+  kable(caption = "Variable Data Types for 'd_evd'") %>% 
   kable_styling(bootstrap_options = c("striped", "responsive"),
                 position = "center")
 ```
@@ -85,6 +86,22 @@ left_join(describe_df(d_evd),
 
 <br>
 <br>
+```
+### Descriptors: 
+
+```{r evd_eda}
+source(here::here("R", "ebola_descriptors.R"))
+province_healthzone %>% 
+  kable(caption = "Affected Health Zones") %>%
+  kable_styling(full_width = F, position = "left")
+epi_curve
+```
+**Date Range:** `r report_date_range`
+
+<br>
+<br>
+<br>
+<br>
 
 **R Session Information: **
 ```{r rsessioninfo, echo=FALSE}
@@ -92,3 +109,6 @@ sessionInfo()
 ```
 
 **Last Edited:** `r format(Sys.Date(), "%b %d %Y")`
+
+
+
