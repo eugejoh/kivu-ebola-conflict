@@ -86,7 +86,20 @@ left_join(describe_df(d_evd),
 
 <br>
 <br>
+
+```{r evd_missing}
+d_evd %>% filter(is.na(new_suspected_cases)) %>% select(publication_date, source) %>% unique() %>% kable(caption = "Missing dates + source for missing new_suspected_cases") %>%
+  kable_styling(full_width = F, position = "left")
+
+d_evd %>% filter(is.na(old_suspected_cases)) %>% select(publication_date, source) %>% unique() %>% kable(caption = "Missing dates + source for missing old_suspected_cases") %>%
+  kable_styling(full_width = F, position = "left")
+
+d_evd %>% filter(is.na(new_deaths)) %>% select(publication_date, source) %>% unique() %>% kable(caption = "Missing dates + source for missing new_deaths") %>%
+  kable_styling(full_width = F, position = "left")
+
 ```
+
+
 ### Descriptors: 
 
 ```{r evd_eda}
