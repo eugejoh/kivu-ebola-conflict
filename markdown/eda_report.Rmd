@@ -86,7 +86,7 @@ left_join(describe_df(d_evd),
 
 <br>
 <br>
-```
+
 ### Descriptors: 
 
 ```{r evd_eda}
@@ -96,6 +96,7 @@ province_healthzone %>%
   kable_styling(full_width = F, position = "left")
 epi_curve
 ```
+
 **Date Range:** `r report_date_range`
 
 <br>
