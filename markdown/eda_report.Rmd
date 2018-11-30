@@ -86,7 +86,21 @@ left_join(describe_df(d_evd),
 
 <br>
 <br>
+
+I'm sure there's a much better way to do this. Filtering by index is the only thing that seemed to work because I'm reaaaal bad at this. 
+
+```{r evd_missing, results='asis'}
+for (item in colnames(d_evd)[colSums(is.na(d_evd)) > 0]) {
+  missing <- d_evd %>% select(item, publication_date, source)
+  missing <- filter(missing, is.na(missing[1])) %>% unique()
+  print(kable(missing, caption = paste("missing data:", item)) %>%
+          kable_styling(full_width = F, position = "left"))
+  cat('\n')
+}
+
 ```
+
+
 ### Descriptors: 
 
 ```{r evd_eda}
