@@ -61,6 +61,10 @@ ggplot(subset(conflictInBorders, ADM2_NAME == "BENI")) + theme_void() +
   geom_sf(aes(size = fatalities), alpha = .5, show.legend = "point") 
 #ggsave("beni_conflict.png")
 
-conflictInBorders <- conflictInBorders %>% select(event_date, fatalities, ADM1_NAME, ADM2_ALTNA, geometry) %>% drop_na
+conflictInBorders <- conflictInBorders %>% 
+  select(event_date, fatalities, ADM1_NAME, ADM2_ALTNA, geometry) %>% 
+  drop_na %>%
+  rename(health_zone = ADM2_ALTNA,
+         province = ADM1_NAME)
 # conflictInBorders now is a record of conflict events that happened within each health zone.
 # everything that was outside of Ituri or Nord Kivu was dropped. 
