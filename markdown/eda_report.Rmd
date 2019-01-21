@@ -102,9 +102,8 @@ for (item in colnames(d_evd)[colSums(is.na(d_evd)) > 0]) {
 
 
 ### Descriptors: 
-
 ```{r evd_eda}
-source(here::here("R", "ebola_descriptors.R"))
+source(here::here("exploratory_scripts", "ebola_descriptors.R"))
 province_healthzone %>% 
   kable(caption = "Affected Health Zones") %>%
   kable_styling(full_width = F, position = "left")
