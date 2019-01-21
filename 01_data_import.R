@@ -18,4 +18,3 @@ d_drc <- readr::read_csv(file = here::here("data", "2018-08-01-2018-11-26-Democr
 names_2nd <- unlist(d_evd[1,]) #save for reference
 
 evd <- d_evd[-1,] #remove first row
-
