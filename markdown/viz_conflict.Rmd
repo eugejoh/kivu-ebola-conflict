@@ -1,5 +1,5 @@
 ---
-title: "Visualize Ebola in DRC"
+title: "Visualize Conflict in DRC"
 author: "Eugene Joh"
 date: "January 21, 2019"
 output: html_document
@@ -68,10 +68,13 @@ d_drc %>%
            event_type != "Strategic development") %>% 
   ggplot(aes(x=date, y=event_type, color = event_type, size = fatalities)) +
   geom_point(alpha = 0.4) +
-  scale_radius(range = c(5,30), name = "Fatalities") +
-  scale_x_datetime(date_breaks = "1 week", date_labels = "%d %b %y") +
+  scale_radius(range = c(5,30), name = "Number of Fatalities") +
+  scale_x_datetime(date_breaks = "1 week", date_labels = "%b %d") +
   guides(color=FALSE) +
-  labs(title = "Fatalities by Type of Conflict in DRC") +
-  theme_classic()
+  labs(title = "Fatalities by Type of Conflict in DRC",
+       x = "Date of Conflict (2018)",
+       y = NULL) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = -90, hjust = 1, vjust = 0.5))
 ```
 
