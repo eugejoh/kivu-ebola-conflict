@@ -12,3 +12,9 @@ d_evd <- readr::read_csv(file = here::here("data", "Data_ Ebola Outbreak, North 
 
 # Import DRC Conflict Data ------------------------------------------------
 d_drc <- readr::read_csv(file = here::here("data", "2018-08-01-2018-11-26-Democratic_Republic_of_Congo.csv"))
+
+
+# Secondary Headers -------------------------------------------------------
+names_2nd <- unlist(d_evd[1,]) #save for reference
+
+evd <- d_evd[-1,] #remove first row

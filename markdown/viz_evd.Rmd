@@ -1,0 +1,77 @@
+---
+title: "Visualize Ebola in DRC"
+author: "Eugene Joh"
+date: "January 21, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+if (!require(here)) install.packages("here")
+source(here::here("00_load_packages.R"))
+
+knitr::opts_chunk$set(echo = TRUE, warning = TRUE, message = TRUE)
+```
+
+# Data Import
+```{r import, message=FALSE, warning=FALSE ,include=TRUE}
+source(here::here("01_data_import.R"))
+```
+
+# Data Processing
+```{r data_proc}
+d_drc <- d_drc %>% 
+  select( #select only the variables we need
+  -iso,
+  -event_id_cnty,
+  -event_id_no_cnty,
+  -time_precision,
+  -inter1,
+  -inter2,
+  -interaction,
+  -iso3
+  )
+```
+
+```{r change_date_format}
+d_drc$date <- as.POSIXct(strptime(d_drc$event_date, format = "%d %B %Y")) #this took forever
+```
+
+```{r change_timestamp}
+# wat are these numbers in d_drc$timestamp? i just googled and apparently its unix epoch time stamps?
+# https://stackoverflow.com/questions/13456241/convert-unix-epoch-to-date-object
+d_drc$tstamp <- as.POSIXct(d_drc$timestamp, origin="1970-01-01")
+
+# check if these make sense?
+d_drc %>% group_by(tstamp, date) %>% count()
+
+d_drc$time_lag <- d_drc$tstamp - d_drc$date #for fun, if theres a lag associated with anything, probably not
+```
+
+```{r tot_fat_conflict}
+d_drc %>% 
+  count(event_type) %>% 
+  ggplot() +
+  geom_bar(aes(x=reorder(event_type,n), y=n, fill = event_type), stat='identity') +
+  coord_flip() +
+  scale_fill_brewer(type = "qual", palette = 2) +
+  guides(fill=FALSE) +
+  labs(title = "Total Fatalities by Type of Conflict Event in DRC", 
+       subtitle = paste(range(d_drc$event_date)[2], "to", range(d_drc$event_date)[1]), #
+       x = NULL, y = "Number of Fatalities") +
+  theme_classic()
+```
+
+```{r radius_fat}
+d_drc %>% 
+  filter(event_type != "Non-violent transfer of territory" & 
+           event_type != "Battle-Non-state actor overtakes territory" & 
+           event_type != "Strategic development") %>% 
+  ggplot(aes(x=date, y=event_type, color = event_type, size = fatalities)) +
+  geom_point(alpha = 0.4) +
+  scale_radius(range = c(5,30), name = "Fatalities") +
+  scale_x_datetime(date_breaks = "1 week", date_labels = "%d %b %y") +
+  guides(color=FALSE) +
+  labs(title = "Fatalities by Type of Conflict in DRC") +
+  theme_classic()
+```
+
