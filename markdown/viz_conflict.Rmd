@@ -47,6 +47,7 @@ d_drc %>% group_by(tstamp, date) %>% count()
 d_drc$time_lag <- d_drc$tstamp - d_drc$date #for fun, if theres a lag associated with anything, probably not
 ```
 
+# Visualize Conflict
 ```{r tot_fat_conflict}
 d_drc %>% 
   count(event_type) %>% 
@@ -76,5 +77,19 @@ d_drc %>%
        y = NULL) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = -90, hjust = 1, vjust = 0.5))
+```
+
+# Mapping
+```{r map_conflict}
+# I'm gonna use your code from `conflict_mapping.R`
+sf::st_as_sf(d_drc, coords = c("longitude", "latitude"), crs = 4326, agr = "constant") # I googled how to do this via `sf`
+
+central_Africa <- sf::st_read("shapefiles/GLOBAL_ADM2-2/GLOBAL_ADM2.shx")
+
+central_Africa %>% filter(ADM0_NAME == "CENTRAL AFRICAN REPUBLIC") %>% 
+
+conflictLocation <- d_drc %>% 
+  select(event_date, event_type, fatalities, admin1, admin2, latitude, longitude) %>% 
+  filter(admin1 %in% c("Nord-Kivu", "Orientale"))
 ```
 
