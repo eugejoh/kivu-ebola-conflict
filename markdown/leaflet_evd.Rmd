@@ -1,0 +1,56 @@
+---
+title: "DRC Ebola-Conflict Leaflet Map"
+author: "Eugene Joh"
+date: "February 13, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_pkgs}
+library(here)
+library(tidyverse)
+library(sf)
+library(ggplot2)
+library(htmlwidgets)
+library(leaflet)
+library(leaflet.extras)
+```
+
+```{r data_import}
+# Import EVD Outbreak Data ------------------------------------------------
+d_evd <- readr::read_csv(file = here::here("data", "Data_ Ebola Outbreak, North Kivu, Democratic Republic of the Congo (DRC) - August 2018 - MOH-By-Health-Zone.csv"))
+
+# Import DRC Conflict Data ------------------------------------------------
+d_drc <- readr::read_csv(file = here::here("data", "2018-08-01-2018-11-26-Democratic_Republic_of_Congo.csv"))
+
+# Import Shapefile
+drc_sf <- sf::st_read("shapefiles/GLOBAL_ADM2-2/GLOBAL_ADM2.shx")
+```
+
+```{r}
+names(d_evd) #country, province, health_sonze
+names(d_drc) #country, admin1, admin2, admin 3, latitude, longtitude
+names(drc_sf) #ADM1_NAME, ADM1_CODE, ADM2
+```
+
+```{r}
+drc_sf <- drc_sf %>% 
+  select(OBJECTID, ISO_2_CODE, ADM2_NAME, ADM1_NAME, 
+         ADM0_NAME, ISO_3_CODE, WHO_CODE, UN_CODE,
+         ADM1_VIZ_N, ADM2_VIZ_N, ADM0_VIZ_N) %>% 
+  filter(ADM0_NAME == "DEMOCRATIC REPUBLIC OF THE CONGO")
+drc_s <- drc_sf
+st_geometry(drc_s) <- NULL
+
+st_crs(drc_sf)
+```
+
+```{r}
+ggplot() +
+  geom_sf(data=drc_sf, aes(fill = ADM1_VIZ_N)) +
+  geom_sf(d_drc)
+```
+
